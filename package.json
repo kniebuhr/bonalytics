@@ -1,0 +1,26 @@
+{
+  "name": "analytics",
+  "version": "1.0.0",
+  "description": "Webservice nodejs para recuperar dados de banco Postgre",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "analytics",
+    "bonamango",
+    "postgre",
+    "webservice",
+    "ws"
+  ],
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "express": "^4.15.3",
+    "express-generator": "^4.15.0",
+    "nodemon": "^1.11.0",
+    "pg": "^6.2.3",
+    "validator": "^7.0.0"
+  },
+  "author": "BonamangoDevTeam",
+  "license": "ISC"
+}
