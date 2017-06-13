@@ -14,11 +14,13 @@
     "ws"
   ],
   "dependencies": {
+    "bluebird": "^3.5.0",
     "body-parser": "^1.17.2",
     "express": "^4.15.3",
     "express-generator": "^4.15.0",
     "nodemon": "^1.11.0",
     "pg": "^6.2.3",
+    "pg-promise": "^5.9.0",
     "validator": "^7.0.0"
   },
   "author": "BonamangoDevTeam",
