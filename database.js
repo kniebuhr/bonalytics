@@ -28,6 +28,7 @@ function postLogin(req, res, next) {
       } else {
         res.status(201).json({
           status: "success",
+          data: data,
           message: "created user"
         });
       }
@@ -38,11 +39,11 @@ function postLogin(req, res, next) {
 }
 
 function getRandom(req, res, next) {
-  db.func('randomItens', req.params.n)
+  db.func('randomItems', req.params.n)
     .then(function (data) {
       res.status(200).json({
           status: 'success',
-          data: json,
+          data: data,
           message: 'Retrieved random itens'
       });
     })
@@ -73,7 +74,7 @@ function getSearch(req, res, next) {
 };
 
 function getLogin(req, res, next){
-  db.func('login', [login, req.query.p])
+  db.func('login', [req.query.l, req.query.p])
     .then(function (data) {
       if (isEmpty(data)){
         res.status(404)
