@@ -123,14 +123,14 @@ function getItemByDay(req, res, next){
   var query;
   if(req.query.anoInicial == req.query.anoFinal){
     if(req.query.mesInicial == req.query.mesFinal){
-      query = 'select * from ba_item_day where (day >= $1 and day <= $4) and month = $2 and year = $3';
+      query = 'select * from ba_item_day where (day >= $1 and day <= $4) and month = $2 and year = $3 and vendor_id = $7';
     } else {
-      query = 'select * from ba_item_day where ((day >= $1 and month = $2) or (day <= $4 and month = $5) or (month > $2 and month < $5)) and year = $3';
+      query = 'select * from ba_item_day where ((day >= $1 and month = $2) or (day <= $4 and month = $5) or (month > $2 and month < $5)) and year = $3 and vendor_id = $7';
     }
   } else {
-    query = 'select * from ba_item_day where (year > $3 and year < $6) or (month > $2 and year = $3) or (month < $5 and year = $6) or (day >= $1 and month = $2 and year = $3) or (day <= $4 and month = $5 and year = $6)';
+    query = 'select * from ba_item_day where ((year > $3 and year < $6) or (month > $2 and year = $3) or (month < $5 and year = $6) or (day >= $1 and month = $2 and year = $3) or (day <= $4 and month = $5 and year = $6)) and vendor_id = $7';
   }
-  db.any(query, [req.query.diaInicial, req.query.mesInicial, req.query.anoInicial, req.query.diaFinal, req.query.mesFinal, req.query.anoFinal])
+  db.any(query, [req.query.diaInicial, req.query.mesInicial, req.query.anoInicial, req.query.diaFinal, req.query.mesFinal, req.query.anoFinal, req.query.id])
     .then(function (data){
       res.status(200).json({
         status: 'success',
@@ -147,14 +147,14 @@ function getItemByMonth(req, res, next){
   var query;
   if(req.query.anoInicial == req.query.anoFinal){
     if(req.query.mesInicial == req.query.mesFinal){
-      query = 'select * from ba_item_month where month = $1 and year = $2';
+      query = 'select * from ba_item_month where month = $1 and year = $2 and vendor_id = $5';
     } else {
-      query = 'select * from ba_item_month where (month >= $1 and month <= $3) and year = $2';
+      query = 'select * from ba_item_month where (month >= $1 and month <= $3) and year = $2 and vendor_id = $5';
     }
   } else {
-    query = 'select * from ba_item_month where (year > $2 and year < $4) or (month >= $1 and year = $2) or (month <= $3 and year = $4)';
+    query = 'select * from ba_item_month where ((year > $2 and year < $4) or (month >= $1 and year = $2) or (month <= $3 and year = $4)) and vendor_id = $7';
   }
-  db.any(query, [req.query.mesInicial, req.query.anoInicial, req.query.mesFinal, req.query.anoFinal])
+  db.any(query, [req.query.mesInicial, req.query.anoInicial, req.query.mesFinal, req.query.anoFinal, req.query.id])
     .then(function (data){
       res.status(200).json({
         status: 'success',
@@ -170,11 +170,11 @@ function getItemByMonth(req, res, next){
 function getItemByYear(req, res, next){
   var query;
   if(req.query.anoInicial == req.query.anoFinal){
-      query = 'select * from ba_item_year where year = $1';
+      query = 'select * from ba_item_year where year = $1 and vendor_id = $3';
   } else {
-    query = 'select * from ba_item_year where year >= $1 and year <= $2';
+    query = 'select * from ba_item_year where year >= $1 and year <= $2 and vendor_id = $3';
   }
-  db.any(query, [req.query.anoInicial, req.query.anoFinal])
+  db.any(query, [req.query.anoInicial, req.query.anoFinal, req.query.id])
     .then(function (data){
       res.status(200).json({
         status: 'success',
@@ -191,14 +191,14 @@ function getCategoryByDay(req, res, next){
   var query;
   if(req.query.anoInicial == req.query.anoFinal){
     if(req.query.mesInicial == req.query.mesFinal){
-      query = 'select * from category_day where (day >= $1 and day <= $4) and month = $2 and year = $3';
+      query = 'select * from category_day where (day >= $1 and day <= $4) and month = $2 and year = $3 and vendor_id = $7';
     } else {
-      query = 'select * from category_day where ((day >= $1 and month = $2) or (day <= $4 and month = $5) or (month > $2 and month < $5)) and year = $3';
+      query = 'select * from category_day where ((day >= $1 and month = $2) or (day <= $4 and month = $5) or (month > $2 and month < $5)) and year = $3 and vendor_id = $7';
     }
   } else {
-    query = 'select * from category_day where (year > $3 and year < $6) or (month > $2 and year = $3) or (month < $5 and year = $6) or (day >= $1 and month = $2 and year = $3) or (day <= $4 and month = $5 and year = $6)';
+    query = 'select * from category_day where ((year > $3 and year < $6) or (month > $2 and year = $3) or (month < $5 and year = $6) or (day >= $1 and month = $2 and year = $3) or (day <= $4 and month = $5 and year = $6)) and vendor_id = $7';
   }
-  db.any(query, [req.query.diaInicial, req.query.mesInicial, req.query.anoInicial, req.query.diaFinal, req.query.mesFinal, req.query.anoFinal])
+  db.any(query, [req.query.diaInicial, req.query.mesInicial, req.query.anoInicial, req.query.diaFinal, req.query.mesFinal, req.query.anoFinal, req.query.id])
     .then(function (data){
       res.status(200).json({
         status: 'success',
@@ -215,14 +215,14 @@ function getCategoryByMonth(req, res, next){
   var query;
   if(req.query.anoInicial == req.query.anoFinal){
     if(req.query.mesInicial == req.query.mesFinal){
-      query = 'select * from category_month where month = $1 and year = $2';
+      query = 'select * from category_month where month = $1 and year = $2 and vendor_id = $5';
     } else {
-      query = 'select * from category_month where (month >= $1 and month <= $3) and year = $2';
+      query = 'select * from category_month where (month >= $1 and month <= $3) and year = $2 and vendor_id = $5';
     }
   } else {
-    query = 'select * from category_month where (year > $2 and year < $4) or (month >= $1 and year = $2) or (month <= $3 and year = $4)';
+    query = 'select * from category_month where ((year > $2 and year < $4) or (month >= $1 and year = $2) or (month <= $3 and year = $4)) and vendor_id = $5';
   }
-  db.any(query, [req.query.mesInicial, req.query.anoInicial, req.query.mesFinal, req.query.anoFinal])
+  db.any(query, [req.query.mesInicial, req.query.anoInicial, req.query.mesFinal, req.query.anoFinal, req.query.id])
     .then(function (data){
       res.status(200).json({
         status: 'success',
@@ -238,11 +238,11 @@ function getCategoryByMonth(req, res, next){
 function getCategoryByYear(req, res, next){
   var query;
   if(req.query.anoInicial == req.query.anoFinal){
-      query = 'select * from category_year where year = $1';
+      query = 'select * from category_year where year = $1 and vendor_id = $3';
   } else {
-    query = 'select * from category_year where year >= $1 and year <= $2';
+    query = 'select * from category_year where year >= $1 and year <= $2 and vendor_id = $3';
   }
-  db.any(query, [req.query.anoInicial, req.query.anoFinal])
+  db.any(query, [req.query.anoInicial, req.query.anoFinal, req.query.id])
     .then(function (data){
       res.status(200).json({
         status: 'success',
@@ -259,14 +259,14 @@ function getVendorByDay(req, res, next){
   var query;
   if(req.query.anoInicial == req.query.anoFinal){
     if(req.query.mesInicial == req.query.mesFinal){
-      query = 'select * from ba_vendor_day where (day >= $1 and day <= $4) and month = $2 and year = $3';
+      query = 'select * from ba_vendor_day where (day >= $1 and day <= $4) and month = $2 and year = $3 and vendor_id = $7';
     } else {
-      query = 'select * from ba_vendor_day where ((day >= $1 and month = $2) or (day <= $4 and month = $5) or (month > $2 and month < $5)) and year = $3';
+      query = 'select * from ba_vendor_day where ((day >= $1 and month = $2) or (day <= $4 and month = $5) or (month > $2 and month < $5)) and year = $3 and vendor_id = $7';
     }
   } else {
-    query = 'select * from ba_vendor_day where (year > $3 and year < $6) or (month > $2 and year = $3) or (month < $5 and year = $6) or (day >= $1 and month = $2 and year = $3) or (day <= $4 and month = $5 and year = $6)';
+    query = 'select * from ba_vendor_day where ((year > $3 and year < $6) or (month > $2 and year = $3) or (month < $5 and year = $6) or (day >= $1 and month = $2 and year = $3) or (day <= $4 and month = $5 and year = $6)) and vendor_id = $7';
   }
-  db.any(query, [req.query.diaInicial, req.query.mesInicial, req.query.anoInicial, req.query.diaFinal, req.query.mesFinal, req.query.anoFinal])
+  db.any(query, [req.query.diaInicial, req.query.mesInicial, req.query.anoInicial, req.query.diaFinal, req.query.mesFinal, req.query.anoFinal, req.query.id])
     .then(function (data){
       res.status(200).json({
         status: 'success',
@@ -283,14 +283,14 @@ function getVendorByMonth(req, res, next){
   var query;
   if(req.query.anoInicial == req.query.anoFinal){
     if(req.query.mesInicial == req.query.mesFinal){
-      query = 'select * from ba_vendor_month where month = $1 and year = $2';
+      query = 'select * from ba_vendor_month where month = $1 and year = $2 and vendor_id = $5';
     } else {
-      query = 'select * from ba_vendor_month where (month >= $1 and month <= $3) and year = $2';
+      query = 'select * from ba_vendor_month where (month >= $1 and month <= $3) and year = $2 and vendor_id = $5';
     }
   } else {
-    query = 'select * from ba_vendor_month where (year > $2 and year < $4) or (month >= $1 and year = $2) or (month <= $3 and year = $4)';
+    query = 'select * from ba_vendor_month where ((year > $2 and year < $4) or (month >= $1 and year = $2) or (month <= $3 and year = $4)) and vendor_id = $5';
   }
-  db.any(query, [req.query.mesInicial, req.query.anoInicial, req.query.mesFinal, req.query.anoFinal])
+  db.any(query, [req.query.mesInicial, req.query.anoInicial, req.query.mesFinal, req.query.anoFinal, req.query.id])
     .then(function (data){
       res.status(200).json({
         status: 'success',
@@ -306,11 +306,11 @@ function getVendorByMonth(req, res, next){
 function getVendorByYear(req, res, next){
   var query;
   if(req.query.anoInicial == req.query.anoFinal){
-      query = 'select * from ba_vendor_year where year = $1';
+      query = 'select * from ba_vendor_year where year = $1 and vendor_id = $3';
   } else {
-    query = 'select * from ba_vendor_year where year >= $1 and year <= $2';
+    query = 'select * from ba_vendor_year where year >= $1 and year <= $2 and vendor_id = $3';
   }
-  db.any(query, [req.query.anoInicial, req.query.anoFinal])
+  db.any(query, [req.query.anoInicial, req.query.anoFinal, req.query.id])
     .then(function (data){
       res.status(200).json({
         status: 'success',
