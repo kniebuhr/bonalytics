@@ -23,7 +23,10 @@ module.exports = {
   getVendorByYear: getVendorByYear,
   getCategoryByDay: getCategoryByDay,
   getCategoryByMonth: getCategoryByMonth,
-  getCategoryByYear: getCategoryByYear
+  getCategoryByYear: getCategoryByYear,
+  getConsumerByDay: getConsumerByDay,
+  getConsumerByMonth: getConsumerByMonth,
+  getConsumerByYear: getConsumerByYear
 };
 
 function postLogin(req, res, next) {
@@ -118,6 +121,74 @@ function postTrade(req, res, next) {
       return next(err);
     });
 };
+
+function getConsumerByDay(req, res, next){
+  var query;
+  if(req.query.anoInicial == req.query.anoFinal){
+    if(req.query.mesInicial == req.query.mesFinal){
+      query = 'select * from ba_consumer_day where (day >= $1 and day <= $4) and month = $2 and year = $3 and vendor_id = $7';
+    } else {
+      query = 'select * from ba_consumer_day where ((day >= $1 and month = $2) or (day <= $4 and month = $5) or (month > $2 and month < $5)) and year = $3 and vendor_id = $7';
+    }
+  } else {
+    query = 'select * from ba_consumer_day where ((year > $3 and year < $6) or (month > $2 and year = $3) or (month < $5 and year = $6) or (day >= $1 and month = $2 and year = $3) or (day <= $4 and month = $5 and year = $6)) and vendor_id = $7';
+  }
+  db.any(query, [req.query.diaInicial, req.query.mesInicial, req.query.anoInicial, req.query.diaFinal, req.query.mesFinal, req.query.anoFinal, req.query.id])
+    .then(function (data){
+      res.status(200).json({
+        status: 'success',
+        data: data,
+        message: 'dados retornados'
+      });
+    })
+    .catch(function (err) {
+      return next(err);
+    });
+}
+
+function getConsumerByMonth(req, res, next){
+  var query;
+  if(req.query.anoInicial == req.query.anoFinal){
+    if(req.query.mesInicial == req.query.mesFinal){
+      query = 'select * from ba_consumer_month where month = $1 and year = $2 and vendor_id = $5';
+    } else {
+      query = 'select * from ba_consumer_month where (month >= $1 and month <= $3) and year = $2 and vendor_id = $5';
+    }
+  } else {
+    query = 'select * from ba_consumer_month where ((year > $2 and year < $4) or (month >= $1 and year = $2) or (month <= $3 and year = $4)) and vendor_id = $7';
+  }
+  db.any(query, [req.query.mesInicial, req.query.anoInicial, req.query.mesFinal, req.query.anoFinal, req.query.id])
+    .then(function (data){
+      res.status(200).json({
+        status: 'success',
+        data: data,
+        message: 'dados retornados'
+      });
+    })
+    .catch(function (err) {
+      return next(err);
+    });
+}
+
+function getConsumerByYear(req, res, next){
+  var query;
+  if(req.query.anoInicial == req.query.anoFinal){
+      query = 'select * from ba_consumer_year where year = $1 and vendor_id = $3';
+  } else {
+    query = 'select * from ba_consumer_year where year >= $1 and year <= $2 and vendor_id = $3';
+  }
+  db.any(query, [req.query.anoInicial, req.query.anoFinal, req.query.id])
+    .then(function (data){
+      res.status(200).json({
+        status: 'success',
+        data: data,
+        message: 'dados retornados'
+      });
+    })
+    .catch(function (err) {
+      return next(err);
+    });
+}
 
 function getItemByDay(req, res, next){
   var query;
