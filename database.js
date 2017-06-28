@@ -155,7 +155,7 @@ function getConsumerByMonth(req, res, next){
       query = 'select * from ba_consumer_month where (month >= $1 and month <= $3) and year = $2 and vendor_id = $5';
     }
   } else {
-    query = 'select * from ba_consumer_month where ((year > $2 and year < $4) or (month >= $1 and year = $2) or (month <= $3 and year = $4)) and vendor_id = $7';
+    query = 'select * from ba_consumer_month where ((year > $2 and year < $4) or (month >= $1 and year = $2) or (month <= $3 and year = $4)) and vendor_id = $5';
   }
   db.any(query, [req.query.mesInicial, req.query.anoInicial, req.query.mesFinal, req.query.anoFinal, req.query.id])
     .then(function (data){
@@ -223,7 +223,7 @@ function getItemByMonth(req, res, next){
       query = 'select * from ba_item_month where (month >= $1 and month <= $3) and year = $2 and vendor_id = $5';
     }
   } else {
-    query = 'select * from ba_item_month where ((year > $2 and year < $4) or (month >= $1 and year = $2) or (month <= $3 and year = $4)) and vendor_id = $7';
+    query = 'select * from ba_item_month where ((year > $2 and year < $4) or (month >= $1 and year = $2) or (month <= $3 and year = $4)) and vendor_id = $5';
   }
   db.any(query, [req.query.mesInicial, req.query.anoInicial, req.query.mesFinal, req.query.anoFinal, req.query.id])
     .then(function (data){
